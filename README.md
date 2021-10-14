@@ -7,8 +7,8 @@ This application implements the [Battleship game](https://en.wikipedia.org/wiki/
 Almost all components of the game is modelled into a class to be as object oriented as possible. Some of the components/objects include
 
 * **Player** which represents a player in the game
-* **BattleBoard** which represent a players first board where the ships are going to seat
-* **MapBoard** which represents a players map board where they record the moves made by their opponent
+* **BattleBoard** which represent a player's first board where the ships are going to seat
+* **MapBoard** which represents a player's map board where they record the moves made by their opponent
 * **Coordinate** which represents the x/y coordinate on the board (labeled A-Z on the rows and 1-10 on the column)
 * **ShipPosition** which holds information about a ship's current position
 * **Game** which the game itself
@@ -32,17 +32,19 @@ To run the game outside a container, follow the steps below;
 
 ## Testing
 
-The unit tests are contained in a folder `BattleshipGame.Tests`. To run unit tests the game (including test coverage report) run the shell script `run-tests.script.sh` with the command `bash run-tests.script.sh` or simply run the command;
+The unit tests are contained in a folder `BattleshipGame.Tests`. To run unit tests (including test coverage report) run the shell script `run-tests.script.sh` with the command `bash run-tests.script.sh` or simply run the command;
 
 * WITH test coverage report - `dotnet test BattleshipGame.Tests/BattleshipGame.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=\"opencover,lcov\" /p:CoverletOutput=../lcov;`
 * WITHOUT test coverage report - `dotnet test BattleshipGame.Tests/BattleshipGame.Tests.csproj`
   
 ## Docker
 
-I've pushed the finished application to [docker hub](https://hub.docker.com/r/ofuochi/battleship). To run the application, follow the steps below;
+I've added a `Dockerfile` to the application to allow the application to be "dockerized". Follow the steps below to build a docker image of the application
 
-* Pull the application with the command `docker pull ofuochi/battleship`.
-* Run the application in interactive mode with the command `docker run -it --rm ofuochi/battleship` (the `--rm` option stops the container when the console application is exited with `Ctrl + C`). Note that you must run the command in ***interactive mode*** (with option `-it`) to be able to interact with the console application.
+* Build the application into a docker image with the command `docker build -t ofuochi/battleship -f Dockerfile .`
+* Run the application in interactive mode with the command `docker run -it --rm ofuochi/battleship` (the `--rm` option stops the container when the console application is exited with `Ctrl + C`). Note that you must run the command in ***interactive mode*** (with the flag `-it`) to be able to interact with the console application.
+
+I've pushed the finished application to [docker hub](https://hub.docker.com/r/ofuochi/battleship). To run the application, simply pull the application from docker hub with the command `docker pull ofuochi/battleship` and follow the steps above.
 
 > Note: The application is build with the latest (preview) ASP.NET core framework (.net 6), hence if you're not running it in a docker container, you will have to install this version of .net to run the application without issue.
 
