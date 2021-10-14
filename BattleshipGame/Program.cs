@@ -16,11 +16,13 @@ namespace BattleshipGame
       playerName = playerName.Length > 0 ? playerName : "Player1";
       var player1 = SetupPlayer(playerName.Trim().ToUpper());
 
+      Console.WriteLine();
       Console.WriteLine($"What is Player2's name? (Press enter to choose default name)");
       playerName = Console.ReadLine();
       playerName = playerName.Length > 0 ? playerName : "Player2";
       var player2 = SetupPlayer(playerName.Trim().ToUpper());
 
+      Console.WriteLine();
       // Initialize the game
       StartGame(player1, player2);
     }
@@ -28,7 +30,7 @@ namespace BattleshipGame
     private static Player SetupPlayer(string playerName)
     {
       playerName = playerName.ToUpper();
-      Console.WriteLine("Do you want your ships to be randomly placed? y/n (Press enter, \"y\" or \"yes\" for yes, otherwise for no...");
+      Console.WriteLine("Do you want your ships to be randomly placed? y/n (Press enter, \"y\" or \"yes\" to affirm. Press anyother key otherwise...");
       var answer = Console.ReadLine().Trim().ToLower();
       var isRandomSetup = answer.Length == 0 || answer == "y" || answer == "yes";
       return isRandomSetup ? new Player(playerName) : new Player(playerName, SetupShips(new List<Ship>()));
@@ -177,17 +179,19 @@ namespace BattleshipGame
     MainLoop: while (shipTypes.Count > 0)
       {
         Console.WriteLine();
-        Console.WriteLine("Values are case insensitive");
+        Console.WriteLine("Inputted values are case insensitive.");
         var shipType = shipTypes.Pop();
         try
         {
-          Console.WriteLine($"Enter START COORDINATE for your {shipType} " +
-          "(e.g any coordinate from A,5,H to C,4,V). If orientation is not entered, it defaults to Horizontal");
+          Console.WriteLine($"Enter START COORDINATE for your {shipType}.\n" +
+          "E.G A,5,H - (Row A, Col 5, Horizontal)  or C,4,V - (Row C, Col 5, Vertical)).\n" +
+          "If an orientation is not entered, it defaults to \"Horizontal\"");
+
           var positions = Console.ReadLine().ToLower().Split(',');
           if (positions.Length < 2)
           {
             Console.WriteLine();
-            Console.WriteLine("Invalid input! You must at least enter a coordinate, e.g A,5, A,5,H or A,5,H");
+            Console.WriteLine("Invalid input! You must at least enter a coordinate, e.g A,5 or A,5,H or A,5,V");
             shipTypes.Push(shipType);
             continue;
           }
@@ -216,7 +220,8 @@ namespace BattleshipGame
 
           if (!canCoordinateFitShip)
           {
-            Console.WriteLine($"Unable to deploy a {shipType} to the battlefield. Try another suitable position!");
+            Console.WriteLine();
+            Console.WriteLine($"You cannot fit a {(isHorizontal ? "horizontal" : "vertical")} {shipType} in that position. Try another position!");
             shipTypes.Push(shipType);
             continue;
           }
@@ -228,7 +233,7 @@ namespace BattleshipGame
             if (shipCoordinatesSet.Contains(shipCoordinateString))
             {
               Console.WriteLine();
-              Console.WriteLine($"There will be a collision on position {shipCoordinateString}. Try another position");
+              Console.WriteLine($"There will be a collision on position {shipCoordinateString}. Try another position!");
               shipTypes.Push(shipType);
               goto MainLoop;
             }
@@ -243,9 +248,8 @@ namespace BattleshipGame
         }
         catch (Exception e)
         {
-          throw new Exception($"Unable to start war!", e);
+          throw new Exception($"Unable to start game!", e);
         }
-
       }
 
       return ships;
