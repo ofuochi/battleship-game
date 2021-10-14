@@ -1,0 +1,1 @@
+dotnet test BattleshipGame.Tests/BattleshipGame.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=\"opencover,lcov\" /p:CoverletOutput=../lcov;
