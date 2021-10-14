@@ -44,7 +44,7 @@ I've added a `Dockerfile` to the application to allow the application to be "doc
 * Build the application into a docker image with the command `docker build -t ofuochi/battleship -f Dockerfile .`
 * Run the application in interactive mode with the command `docker run -it --rm ofuochi/battleship` (the `--rm` option stops the container when the console application is exited with `Ctrl + C`). Note that you must run the command in ***interactive mode*** (with the flag `-it`) to be able to interact with the console application.
 
-I've pushed the finished application to [docker hub](https://hub.docker.com/r/ofuochi/battleship). To run the application, simply pull the application from docker hub with the command `docker pull ofuochi/battleship` and follow the steps above.
+I've pushed the finished application to [docker hub](https://hub.docker.com/r/ofuochi/battleship). To run the application, simply pull the application from docker hub with the command `docker pull ofuochi/battleship` and follow the 2nd steps above.
 
 > Note: The application is build with the latest (preview) ASP.NET core framework (.net 6), hence if you're not running it in a docker container, you will have to install this version of .net to run the application without issue.
 
