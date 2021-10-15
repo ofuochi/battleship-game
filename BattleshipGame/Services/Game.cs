@@ -11,9 +11,12 @@ namespace BattleshipGame.Services
 
     public Game(Player player1, Player player2) => (Player1, Player2) = (player1, player2);
 
-    public void Attack(Player enemy, Coordinate coordinate)
+    public void AttackPlayer1(Coordinate coordinate) => Attack(Player2, Player1, coordinate);
+
+    public void AttackPlayer2(Coordinate coordinate) => Attack(Player1, Player2, coordinate);
+
+    private void Attack(Player player, Player enemy, Coordinate coordinate)
     {
-      var player = Object.ReferenceEquals(enemy, Player1) ? Player2 : Player1;
       var enemyShip = enemy.BattleBoard.GetItem(coordinate);
 
       if (IsGameOver()) throw new GameOverException();

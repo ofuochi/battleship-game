@@ -83,7 +83,7 @@ namespace BattleshipGame
             continue;
           }
 
-          game.Attack(player2, coordinate);
+          game.AttackPlayerTwo(coordinate);
 
           // Check if Player 1 won
           if (Object.ReferenceEquals(game.GetWinner(), player1))
@@ -129,7 +129,7 @@ namespace BattleshipGame
           continue;
         }
 
-        game.Attack(player1, coordinate);
+        game.AttackPlayerOne(coordinate);
 
         // Check if Player 2 won
         if (Object.ReferenceEquals(game.GetWinner(), player2))

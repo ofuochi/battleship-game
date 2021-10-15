@@ -15,7 +15,7 @@ Almost all components of the game is modelled into a class to be as object orien
 
 ### Game Play
 
-To begin a game, an instance of a `Game` must be created which is dependent on a `Player` instance. An player attacks their enemy by calling the `Attack` method of the game and passing in an enemy player and a coordinate to attack. Whoever sinks all of their opponent's ships first wins the game! The method `GetWinner` returns the current winner of the game or `null` if the game is still in play.
+To begin a game, an instance of a `Game` must be created which is dependent on a `Player` instance. A player attacks their enemy by calling the `AttackPlayerOne` or `AttackPlayerTwo` method of the game accordingly, passing in a coordinate to attack. Whoever sinks all of their opponent's ships first wins the game! The method `GetWinner` returns the current winner of the game or `null` if the game is still in play.
 
 > Note: If a player is instantiated without passing in ships, it will randomly create and place ships in random positions on the **BattleBoard**
 

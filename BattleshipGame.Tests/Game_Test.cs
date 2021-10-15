@@ -75,7 +75,7 @@ namespace BattleshipGame.Tests
     {
       var missTarget = new Coordinate(BoardRow.J, BoardColumn.Ten);
 
-      _game.Attack(_player2, missTarget);
+      _game.AttackPlayerTwo(missTarget);
 
       var missLandmark = _player1.MapBoard.GetItem(missTarget);
       var missedShip = _player2.BattleBoard.GetItem(missTarget);
@@ -88,7 +88,7 @@ namespace BattleshipGame.Tests
     {
       var missTarget = new Coordinate(BoardRow.J, BoardColumn.Ten);
 
-      _game.Attack(_player1, missTarget);
+      _game.AttackPlayerOne(missTarget);
 
       var missLandmark = _player2.MapBoard.GetItem(missTarget);
       var missedShip = _player1.BattleBoard.GetItem(missTarget);
@@ -101,7 +101,7 @@ namespace BattleshipGame.Tests
     public void ShouldMarkPlayerMapBoard_WithHitLandmark_WhenPlayer1Hits()
     {
       var hitTarget = _a1;
-      _game.Attack(_player2, hitTarget);
+      _game.AttackPlayerTwo(hitTarget);
 
       var hitLandmark = _player1.MapBoard.GetItem(hitTarget);
 
@@ -116,7 +116,7 @@ namespace BattleshipGame.Tests
     public void ShouldMarkPlayerMapBoard_WithHitLandmark_WhenPlayer2Hits()
     {
       var hitTarget = _a1;
-      _game.Attack(_player1, hitTarget);
+      _game.AttackPlayerOne(hitTarget);
 
       var hitLandmark = _player2.MapBoard.GetItem(hitTarget);
 
@@ -132,18 +132,18 @@ namespace BattleshipGame.Tests
     public void ShouldThrowPieceOverlapException_WhenPlayer1AttackSameCoordinate()
     {
       var hitTarget = _a1;
-      _game.Attack(_player1, hitTarget);
+      _game.AttackPlayerOne(hitTarget);
 
-      Assert.Throws<PieceOverlapException>(() => _game.Attack(_player1, hitTarget));
+      Assert.Throws<PieceOverlapException>(() => _game.AttackPlayerOne(hitTarget));
     }
 
     [Fact]
     public void ShouldThrowPieceOverlapException_WhenPlayer2AttackSameCoordinate()
     {
       var hitTarget = _a1;
-      _game.Attack(_player2, hitTarget);
+      _game.AttackPlayerTwo(hitTarget);
 
-      Assert.Throws<PieceOverlapException>(() => _game.Attack(_player2, hitTarget));
+      Assert.Throws<PieceOverlapException>(() => _game.AttackPlayerTwo(hitTarget));
     }
 
 
@@ -151,7 +151,7 @@ namespace BattleshipGame.Tests
     public void ShouldRemoveShipFromPlayer2Ship_WhenShipIsHitUntilItSinks()
     {
       var hitTarget = new Coordinate(BoardRow.E, BoardColumn.Two);
-      _game.Attack(_player2, _e1);
+      _game.AttackPlayerTwo(_e1);
 
       var hitShip = _player2.BattleBoard.GetItem(hitTarget);
 
@@ -161,7 +161,7 @@ namespace BattleshipGame.Tests
       Assert.False(hitShip.IsSunk);
       Assert.Contains(hitShip, _player2.BattleBoard.Ships);
 
-      _game.Attack(_player2, hitTarget);
+      _game.AttackPlayerTwo(hitTarget);
 
       Assert.Equal(0, hitShip.Life);
       Assert.True(hitShip.IsSunk);
@@ -174,7 +174,7 @@ namespace BattleshipGame.Tests
     public void ShouldRemoveShipFromPlayer1Ship_WhenShipIsHitUntilItSinks()
     {
       var hitTarget = new Coordinate(BoardRow.E, BoardColumn.Two);
-      _game.Attack(_player1, _e1);
+      _game.AttackPlayerOne(_e1);
 
       var hitShip = _player1.BattleBoard.GetItem(hitTarget);
 
@@ -184,7 +184,7 @@ namespace BattleshipGame.Tests
       Assert.False(hitShip.IsSunk);
       Assert.Contains(hitShip, _player1.BattleBoard.Ships);
 
-      _game.Attack(_player1, hitTarget);
+      _game.AttackPlayerOne(hitTarget);
 
       Assert.Equal(0, hitShip.Life);
       Assert.True(hitShip.IsSunk);
@@ -204,12 +204,12 @@ namespace BattleshipGame.Tests
         var shipLength = Ship.GetLength(_ships[i].ShipType);
 
         for (int j = 0; j < shipLength; j++)
-          _game.Attack(_player2, new Coordinate((BoardRow)i, (BoardColumn)j));
+          _game.AttackPlayerTwo(new Coordinate((BoardRow)i, (BoardColumn)j));
 
       }
 
       Assert.Equal(_player1, _game.GetWinner());
-      Assert.Throws<GameOverException>(() => _game.Attack(_player2, _a1));
+      Assert.Throws<GameOverException>(() => _game.AttackPlayerTwo(_a1));
 
       Assert.True(_game.IsGameOver());
     }
@@ -224,12 +224,12 @@ namespace BattleshipGame.Tests
         var shipLength = Ship.GetLength(_ships[i].ShipType);
 
         for (int j = 0; j < shipLength; j++)
-          _game.Attack(_player1, new Coordinate((BoardRow)i, (BoardColumn)j));
+          _game.AttackPlayerOne(new Coordinate((BoardRow)i, (BoardColumn)j));
 
       }
 
       Assert.Equal(_player2, _game.GetWinner());
-      Assert.Throws<GameOverException>(() => _game.Attack(_player1, _a1));
+      Assert.Throws<GameOverException>(() => _game.AttackPlayerOne(_a1));
 
       Assert.True(_game.IsGameOver());
     }
